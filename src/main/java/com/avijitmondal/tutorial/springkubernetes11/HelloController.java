@@ -16,7 +16,9 @@ public class HelloController {
     private Environment environment;
 
     @GetMapping("/hello")
-    public String sayHello(@RequestParam("name") String name) {
+    public String sayHello(@RequestParam(value = "name", required = false) String name) {
+        if (name == null || name.isBlank())
+            return "Hello World!";
         return "Hello " + name + "!";
     }
 
