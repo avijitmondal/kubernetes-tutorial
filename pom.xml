@@ -11,8 +11,8 @@
 	<groupId>com.avijitmondal.tutorial</groupId>
 	<artifactId>spring-k8s</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-kubernetes-11</name>
-	<description>Demo project for Spring Boot</description>
+	<name>spring-k8s</name>
+	<description>Demo project for Spring Boot kubernetes deployment</description>
 	<properties>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
