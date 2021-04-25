@@ -8,7 +8,7 @@ ADD pom.xml pom.xml
 ADD src/ src/
 
 # Prepare by downloading dependencies main module
-RUN mvn clean --file pom.xml package
+RUN mvn clean package
 
 # Deployment stage
 FROM openjdk:11-jre-slim

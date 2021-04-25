@@ -71,7 +71,7 @@ and delete kubernetes resource
 
 modify image name on the deployment file `spring-k8s-deploy.yml` from `spring-k8s:1.0` to `spring-k8s-prod:1.0`  
 ```
-docker build . -t spring-k8s-prod:1.0
+docker build . -t spring-k8s-prod:1.0 -f Dockerfile-prod
 kubectl apply -f kubernetes/mysql-k8s-svc.yml
 kubectl apply -f kubernetes/spring-k8s-deploy.yml
 kubectl apply -f kubernetes/spring-k8s-svc.yml
