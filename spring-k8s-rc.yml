@@ -1,7 +1,7 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: spring-k8s-deploy
+  name: spring-k8s-rc
   labels:
     app: spring-k8s
 spec:
@@ -25,6 +25,3 @@ spec:
              cpu: 1
              memory: 1Gi
   replicas: 3
-  selector:
-    matchLabels:
-      app: spring-k8s

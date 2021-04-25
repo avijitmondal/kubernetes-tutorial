@@ -1,10 +1,10 @@
-package com.avijitmondal.tutorial.springkubernetes11;
+package com.avijitmondal.tutorial.k8s;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringKubernetes11ApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {

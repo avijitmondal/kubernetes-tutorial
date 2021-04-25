@@ -1,13 +1,13 @@
-package com.avijitmondal.tutorial.springkubernetes11;
+package com.avijitmondal.tutorial.k8s;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringKubernetes11Application {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringKubernetes11Application.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }

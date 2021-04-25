@@ -3,9 +3,10 @@ kind: Service
 metadata:
   name: spring-k8s-service
 spec:
-  selector:
-    app: backend
+  type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 9376
+      port: 9376
+      targetPort: 8080
+  selector:
+    app: spring-k8s

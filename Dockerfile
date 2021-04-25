@@ -1,5 +1,5 @@
 # Build stage
-FROM maven:3.6.3-jdk-11-slim AS build
+FROM maven:3.8.1-jdk-11-slim AS build
 MAINTAINER Avijit Mondal <avijitmondal38@gmail.com>
 
 # Copying source code
