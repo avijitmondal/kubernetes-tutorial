@@ -40,14 +40,17 @@ will respond the details of server ip, port and hostname
 
 ### steps to run this application as a standalone docker container
 
-`docker run -p 8080:8080 spring-k8s:1.0 spring-k8s`
+```shell
+docker build . -t spring-k8s:1.0 -f docker\Dockerfile
+docker run -p 8080:8080 spring-k8s:1.0 spring-k8s
+```
 
 open `http://localhost:8080/details`
 
 ### steps to deploy this application on k8s cluster with embeded h2 database 
 
 ```shell
-docker build . -t spring-k8s:1.0
+docker build . -t spring-k8s:1.0 -f docker\Dockerfile
 kubectl apply -f kubernetes/spring-k8s-deploy.yml
 kubectl apply -f kubernetes/spring-k8s-svc.yml
 ```
@@ -71,7 +74,7 @@ and delete kubernetes resource
 
 modify image name on the deployment file `spring-k8s-deploy.yml` from `spring-k8s:1.0` to `spring-k8s-prod:1.0`  
 ```
-docker build . -t spring-k8s-prod:1.0 -f Dockerfile-prod
+docker build . -t spring-k8s-prod:1.0 -f docker\Dockerfile-prod
 kubectl apply -f kubernetes/mysql-k8s-svc.yml
 kubectl apply -f kubernetes/spring-k8s-deploy.yml
 kubectl apply -f kubernetes/spring-k8s-svc.yml
