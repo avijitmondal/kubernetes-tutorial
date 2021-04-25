@@ -1,20 +1,84 @@
 # kubernetes tutorial
 
-steps to deploy this application on k8s cluster
+### steps to run application as a standalone java application with h2 database
 
+```shell
+mvn clean package
+java -jar target\spring-k8s.jar
 ```
+
+this java application contains two endpoints
+
+`http://localhost:808/hello` and `http://localhost:808/details`
+
+`http://localhost:808/hello`
+will return `Hello World!` unless any query param specified
+
+if `tutorial` database `user` table contains below data
+
+| id        | name           | passport_number  |
+| --------- |:------------- :| --------------- :|
+| 10001     | ranga          | e1234567         |
+| 10002     | avijit         | e1234568         |
+
+
+if called with `"avijit"` as a value for `'name'` query param
+`http://localhost:8080/hello?name=avijit`
+
+will respond `User{id=10002, name='avijit', passportNumber='a1234568'}`
+
+if called with `"10001"` as a value for `'name'` query param
+`http://localhost:8080/hello?id=10001`
+
+will respond `User{id=10001, name='ranga', passportNumber='e1234567'}`
+
+and another endpoint is `http://localhost:8080/details`
+
+will respond the details of server ip, port and hostname
+
+`Your current IP address: 1.2.3.4 , Port: 8080 , Hostname: abcdefgh`
+
+### steps to run this application as a standalone docker container
+
+`docker run -p 8080:8080 spring-k8s:1.0 spring-k8s`
+
+open `http://localhost:8080/details`
+
+### steps to deploy this application on k8s cluster with embeded h2 database 
+
+```shell
 docker build . -t spring-k8s:1.0
-kubectl apply -f spring-k8s-deploy.yml
-kubectl apply -f spring-k8s-svc.yml
+kubectl apply -f kubernetes/spring-k8s-deploy.yml
+kubectl apply -f kubernetes/spring-k8s-svc.yml
 ```
 
-open 
-http://localhost:9376/details
+open `http://localhost:9376/details`
 
-to run spring-k8s docker image as a standalone docker container user
+### steps to deploy this application on k8s cluster with mysql
 
-`docker run -p 8080:8080 spring-k8s:1.0 spring-k8s
-`
+before preceding deploy mysql and load data into it
+```shell
+kubectl apply -f kubernetes/mysql-k8s-pvc.yml
+kubectl apply -f kubernetes/mysql-k8s-deploy.yml
+kubectl apply -f kubernetes/mysql-k8s-svc-lb.yml
+```
+
+access mysql with user `root` and password as `password` and port `3306` create database named tutorial and load schema and data from `src\main\resources\schema.sql` and `src\main\resources\data.sql`
+
+and delete kubernetes resource
+
+`kubectl delete -f kubernetes/mysql-k8s-svc-lb.yml`
+
+modify image name on the deployment file `spring-k8s-deploy.yml` from `spring-k8s:1.0` to `spring-k8s-prod:1.0`  
+```
+docker build . -t spring-k8s-prod:1.0
+kubectl apply -f kubernetes/mysql-k8s-svc.yml
+kubectl apply -f kubernetes/spring-k8s-deploy.yml
+kubectl apply -f kubernetes/spring-k8s-svc.yml
+```
+
+open `http://localhost:9376/details`
+
 
 ### some points to remember
 construction of kubectl commands

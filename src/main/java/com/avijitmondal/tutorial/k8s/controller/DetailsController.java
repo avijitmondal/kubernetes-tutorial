@@ -20,7 +20,7 @@ public class DetailsController {
         try {
             var ip = InetAddress.getLocalHost();
             var hostname = ip.getHostName();
-            return "Your current IP address: " + ip.getHostAddress() + " , Port: " + environment.getProperty("local.server.port") + " , Hostname: " + hostname;
+            return "Your current IP address: " + ip.getHostAddress() + ", Port: " + environment.getProperty("local.server.port") + " , Hostname: " + hostname;
 
         } catch (UnknownHostException e) {
             e.printStackTrace();
