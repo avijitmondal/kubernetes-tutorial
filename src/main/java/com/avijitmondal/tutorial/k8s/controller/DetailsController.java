@@ -1,4 +1,4 @@
-package com.avijitmondal.tutorial.k8s;
+package com.avijitmondal.tutorial.k8s.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -9,17 +9,10 @@ import java.net.UnknownHostException;
 
 @CrossOrigin
 @RestController
-public class Controller {
+public class DetailsController {
 
     @Autowired
     private Environment environment;
-
-    @GetMapping("/hello")
-    public String sayHello(@RequestParam(value = "name", required = false) String name) {
-        if (name == null || name.isBlank())
-            return "Hello World!";
-        return "Hello " + name + "!";
-    }
 
     @GetMapping("/details")
     public String getHostname() {
