@@ -4,11 +4,11 @@ MAINTAINER Avijit Mondal <avijitmondal38@gmail.com>
 
 # Copying source code
 WORKDIR /app
-ADD ../pom.xml pom.xml
-ADD ../src src/
+ADD pom.xml pom.xml
+ADD src src/
 
 # Prepare by downloading dependencies main module
-RUN mvn clean package -DskipTests=true
+RUN mvn clean package
 
 # Deployment stage
 FROM openjdk:11-jre-slim
