@@ -14,6 +14,9 @@ spec:
       containers:
        - name: spring-k8s
          image: spring-k8s:1.0
+         env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: default
          ports:
           - containerPort: 8080
          imagePullPolicy: Never
@@ -23,8 +26,8 @@ spec:
              memory: 1Gi
            requests:
              cpu: 1
-             memory: 1Gi
-  replicas: 3
+             memory: 1Gi 
+  replicas: 1
   selector:
     matchLabels:
       app: spring-k8s

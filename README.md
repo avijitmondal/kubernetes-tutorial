@@ -9,9 +9,9 @@ java -jar target\spring-k8s.jar
 
 this java application contains two endpoints
 
-`http://localhost:808/hello` and `http://localhost:808/details`
+`http://localhost:8080/hello` and `http://localhost:8080/details`
 
-`http://localhost:808/hello`
+`http://localhost:8080/hello`
 will return `Hello World!` unless any query param specified
 
 if `tutorial` database `user` table contains below data
@@ -41,7 +41,7 @@ will respond the details of server ip, port and hostname
 ### steps to run this application as a standalone docker container
 
 ```shell
-docker build . -t spring-k8s:1.0 -f docker\Dockerfile
+docker build . -t spring-k8s:1.0 -f Dockerfile
 docker run -p 8080:8080 spring-k8s:1.0 spring-k8s
 ```
 
@@ -50,7 +50,7 @@ open `http://localhost:8080/details`
 ### steps to deploy this application on k8s cluster with embeded h2 database 
 
 ```shell
-docker build . -t spring-k8s:1.0 -f docker\Dockerfile
+docker build . -t spring-k8s:1.0 -f Dockerfile
 kubectl apply -f kubernetes/spring-k8s-deploy.yml
 kubectl apply -f kubernetes/spring-k8s-svc.yml
 ```
@@ -61,21 +61,20 @@ open `http://localhost:9376/details`
 
 before preceding deploy mysql and load data into it
 ```shell
-kubectl apply -f kubernetes/mysql-k8s-pvc.yml
-kubectl apply -f kubernetes/mysql-k8s-deploy.yml
-kubectl apply -f kubernetes/mysql-k8s-svc-lb.yml
+kubectl apply -f mysql/mysql-k8s-pvc.yml
+kubectl apply -f mysql/mysql-k8s-deploy.yml
+kubectl apply -f mysql/mysql-k8s-svc-lb.yml
 ```
 
 access mysql with user `root` and password as `password` and port `3306` create database named tutorial and load schema and data from `src\main\resources\schema.sql` and `src\main\resources\data.sql`
 
 and delete kubernetes resource
 
-`kubectl delete -f kubernetes/mysql-k8s-svc-lb.yml`
+`kubectl delete -f mysql/mysql-k8s-svc-lb.yml`
 
-modify image name on the deployment file `spring-k8s-deploy.yml` from `spring-k8s:1.0` to `spring-k8s-prod:1.0`  
+modify environment veriable `SPRING_PROFILES_ACTIVE` value from `default` to `prod` on the deployment file `spring-k8s-deploy.yml`  
 ```
-docker build . -t spring-k8s-prod:1.0 -f docker\Dockerfile-prod
-kubectl apply -f kubernetes/mysql-k8s-svc.yml
+kubectl apply -f mysql/mysql-k8s-svc.yml
 kubectl apply -f kubernetes/spring-k8s-deploy.yml
 kubectl apply -f kubernetes/spring-k8s-svc.yml
 ```
