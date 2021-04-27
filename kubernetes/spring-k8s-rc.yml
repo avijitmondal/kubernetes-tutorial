@@ -18,10 +18,7 @@ spec:
           - containerPort: 8080
          imagePullPolicy: Never
          resources:
-           limits:
-             cpu: 1
-             memory: 1Gi
-           requests:
-             cpu: 1
-             memory: 1Gi
+          limits:          #not overriding default requested resources
+            cpu: 1         #default value requested is 0.5 CPU
+            memory: 1Gi    #default value requested is 256Mi
   replicas: 3

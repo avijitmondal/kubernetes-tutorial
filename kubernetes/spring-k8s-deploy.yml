@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: 
   name: spring-k8s-deploy
   labels:
     app: spring-k8s
@@ -14,20 +15,31 @@ spec:
       containers:
        - name: spring-k8s
          image: spring-k8s:1.0
-         env:
-          - name: SPRING_PROFILES_ACTIVE
-            value: default
+         envFrom:
+          - configMapRef:
+              name: spring-k8s-configmap
          ports:
           - containerPort: 8080
          imagePullPolicy: Never
          resources:
-           limits:
-             cpu: 1
-             memory: 1Gi
-           requests:
-             cpu: 1
-             memory: 1Gi 
-  replicas: 1
+           limits:          #not overriding default requested resources
+             cpu: 1         #default value requested is 0.5 CPU
+             memory: 1Gi    #default value requested is 256Mi
+         readinessProbe:
+           httpGet:
+             path: /details
+             port: 8080
+           initialDelaySeconds: 4
+           periodSeconds: 1
+           failureThreshold: 5
+         livenessProbe:
+           httpGet:
+             path: /details
+             port: 8080
+           initialDelaySeconds: 10
+           periodSeconds: 5
+           failureThreshold: 5
+  replicas: 4
   selector:
     matchLabels:
       app: spring-k8s

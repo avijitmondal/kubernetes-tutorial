@@ -16,20 +16,17 @@ spec:
       containers:
       - image: mysql:5.6
         name: mysql
-        env:
-          # Use secret in real usage
-        - name: MYSQL_ROOT_PASSWORD
-          value: password
-        - name: MYSQL_DATABASE
-          value: tutorial
+        envFrom:
+          - configMapRef:
+              name: mysql-k8s-configmap
+          - secretRef:
+              name: mysql-k8s-secret
+              key: MYSQL_ROOT_PASSWORD # to use a single secret to avail all of them do not put 'key'
         ports:
         - containerPort: 3306
           name: mysql
         resources:
            limits:
-             cpu: 1
-             memory: 1Gi
-           requests:
              cpu: 1
              memory: 1Gi
         volumeMounts:
