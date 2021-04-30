@@ -1,8 +1,11 @@
 package com.avijitmondal.tutorial.k8s.controller;
 
+import com.avijitmondal.tutorial.k8s.model.Details;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -15,16 +18,17 @@ public class DetailsController {
     private Environment environment;
 
     @GetMapping("/details")
-    public String getHostname() {
+    public ResponseEntity<Details> getHostname() {
 
         try {
             var ip = InetAddress.getLocalHost();
             var hostname = ip.getHostName();
-            return "Your current IP address: " + ip.getHostAddress() + ", Port: " + environment.getProperty("local.server.port") + " , Hostname: " + hostname;
-
+            var details = new Details(environment.getProperty("local.server.port"), ip.getHostName(), ip.getHostAddress());
+            return new ResponseEntity<>(details, HttpStatus.OK);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        return "Unable to check hostname";
+        var details = new Details();
+        return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
     }
 }

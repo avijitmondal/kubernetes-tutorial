@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 import java.util.Optional;
 
@@ -17,7 +19,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/hello")
-    public String sayHello(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "id", required = false) String id) {
+    public ResponseEntity<User> sayHello(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "id", required = false) String id) {
         try {
             Optional<User> optionalUser = Optional.empty();
             if (name != null && !name.isBlank()) {
@@ -26,11 +28,11 @@ public class UserController {
                 optionalUser = userRepository.findById(Long.valueOf(id));
             }
             if (optionalUser.isPresent())
-                return optionalUser.get().toString();
+                return new ResponseEntity<>(optionalUser.get(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "Hello World!";
-
+        var user = new User(0, "Hello World!", null);
+        return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
     }
 }
