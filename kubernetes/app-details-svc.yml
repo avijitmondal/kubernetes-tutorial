@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-k8s-service
+  name: app-details-service
 spec:
   type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 9376
-      targetPort: 8080
+      port: 9001
+      targetPort: 5000
   selector:
-    app: spring-k8s
+    app: app-details

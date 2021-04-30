@@ -1,27 +1,28 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
-  name: spring-k8s-rs
+  name: app-details-deploy
   labels:
-    app: spring-k8s
+    app: app-details
 spec:
   template:
     metadata:
-      name: spring-k8s-pod
+      name: app-details-pod
       labels:
-        app: spring-k8s
+        app: app-details
     spec:
       containers:
-       - name: spring-k8s
-         image: spring-k8s:1.0
+       - name: app-details
+         image: avijit/app-details:1.0
          ports:
-          - containerPort: 8080
-         imagePullPolicy: Never
+          - containerPort: 5000
          resources:
            limits:          #not overriding default requested resources
              cpu: 1         #default value requested is 0.5 CPU
              memory: 1Gi    #default value requested is 256Mi
+           requests:
+             cpu: 100m      #default value requested is 0.5 CPU
   replicas: 3
   selector:
     matchLabels:
-      app: spring-k8s
+      app: app-details
