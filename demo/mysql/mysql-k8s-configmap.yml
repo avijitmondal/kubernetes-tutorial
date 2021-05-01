@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: spring-k8s-configmap
-data:
-  MYSQL_DATABASE: tutorial
