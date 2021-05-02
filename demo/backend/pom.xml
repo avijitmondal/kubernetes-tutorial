@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.avijitmondal.tutorial</groupId>
-	<artifactId>spring-k8s</artifactId>
+	<artifactId>app-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-k8s</name>
+	<name>app-backend</name>
 	<description>Demo project for Spring Boot kubernetes deployment</description>
 	<properties>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
