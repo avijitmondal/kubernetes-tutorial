@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "app-backend.fullname" . }}-deployment
+  name: {{ include "app-gui.fullname" . }}-deployment
   labels:
-    {{- include "app-backend.labels" . | nindent 4 }}
+    {{- include "app-gui.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -11,7 +11,7 @@ spec:
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   selector:
     matchLabels:
-      {{- include "app-backend.selectorLabels" . | nindent 6 }}
+      {{- include "app-gui.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -19,13 +19,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "app-backend.selectorLabels" . | nindent 8 }}
+        {{- include "app-gui.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "app-backend.serviceAccountName" . }}-serviceaccount
+      serviceAccountName: {{ include "app-gui.serviceAccountName" . }}-serviceaccount
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -36,24 +36,21 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 80
+              protocol: TCP
           livenessProbe:
             httpGet:
-              path: /details
-              port: 8080
-            initialDelaySeconds: 15
-            failureThreshold: 5
+              path: /
+              port: http
           readinessProbe:
             httpGet:
-              path: /details
-              port: 8080
-            initialDelaySeconds: 15
-            failureThreshold: 5
+              path: /
+              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:
           - configMapRef:
-              name: {{ include "app-details.fullname" . }}-configmap
+              name: {{ include "app-gui.fullname" . }}-configmap
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
