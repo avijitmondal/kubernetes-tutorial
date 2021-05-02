@@ -34,8 +34,13 @@ service:
   type: ClusterIP
   port: 8080
 
-secret:
-  secretValue: cGFzc3dvcmQ=
+config:
+  remoteDb:
+    enabled: false
+    mysqlDbUrl: mysql-service:3306
+    mysqlDbName: tutorial
+    mysqlDbRootPassword: cGFzc3dvcmQ=
+  profile: default
 
 ingress:
   enabled: false
