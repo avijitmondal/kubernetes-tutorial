@@ -5,6 +5,6 @@ metadata:
 data:
   SPRING_PROFILES_ACTIVE: {{ .Values.config.profile }}
   {{- if .Values.config.remoteDb.enabled }}
-  MYSQL_SERVICE_URL: {{ .Values.config.remoteDbMysqlDbUrl }}
+  MYSQL_SERVICE_URL: {{ .Values.config.remoteDb.mysqlDbUrl }}
   MYSQL_DB_NAME: {{ .Values.config.remoteDb.mysqlDbName }}
   {{- end }}
