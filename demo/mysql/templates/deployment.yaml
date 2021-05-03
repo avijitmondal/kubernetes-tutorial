@@ -41,9 +41,11 @@ spec:
           livenessProbe:
             tcpSocket:
               port: 3306
+            initialDelaySeconds: 90
           readinessProbe:
             tcpSocket:
               port: 3306
+            initialDelaySeconds: 90
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:
