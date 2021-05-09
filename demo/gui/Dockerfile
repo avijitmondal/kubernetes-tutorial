@@ -6,6 +6,7 @@ LABEL maintainer="avijitmondal38@gmail.com"
 WORKDIR /app
 ADD package.json package.json
 ADD src src/
+ADD nginx nginx/
 
 # Prepare by downloading dependencies main module
 RUN npm install
@@ -14,7 +15,8 @@ RUN npm install
 FROM nginx:1.19-alpine
 LABEL maintainer="avijitmondal38@gmail.com"
 
-COPY --from=build /app/target/spring-k8s.jar /usr/local/lib/app.jar
+COPY --from=build /app/public /usr/share/nginx/html
+COPY --from=build /app/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 5000
-ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]
+EXPOSE 80
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
