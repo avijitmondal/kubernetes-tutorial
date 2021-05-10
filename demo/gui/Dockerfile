@@ -6,10 +6,12 @@ LABEL maintainer="avijitmondal38@gmail.com"
 WORKDIR /app
 ADD package.json package.json
 ADD src src/
+ADD public public/
 ADD nginx nginx/
 
 # Prepare by downloading dependencies main module
 RUN npm install
+RUN npm run build --prod
 
 # Deployment stage
 FROM nginx:1.19-alpine
