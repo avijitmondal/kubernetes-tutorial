@@ -2,6 +2,10 @@
 
 ### steps to run application as a standalone java application with h2 database
 
+app-details is smallest app to use different resource types of kubernetes
+[App-Details](repo/blob/master/app-details/README.md)
+
+
 ```shell
 mvn clean package
 java -jar target\spring-k8s.jar
