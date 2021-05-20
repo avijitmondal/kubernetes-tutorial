@@ -14,25 +14,25 @@ to run this application as a standalone docker container
 docker run -p 5000:5000 app-details:1.0
 `
 
-to run this applciation as a standalone pod
+to run this application as a standalone pod
 
 `
 kubectl apply -f kubernetes\app-details-pod.yaml
 `
 
-to run this applciation with help of replication controller
+to run this application with help of replication controller
 
 `
 kubectl apply -f kubernetes\app-details-rc.yaml
 `
 
-to run this applciation with help of replica set
+to run this application with help of replica set
 
 `
 kubectl apply -f kubernetes\app-details-rs.yaml
 `
 
-to run this applciation with help of deployment
+to run this application with help of deployment
 
 `
 kubectl apply -f kubernetes\app-details-deploy.yaml
