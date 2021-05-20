@@ -1,7 +1,6 @@
 package com.avijitmondal.tutorial.k8s.controller;
 
 import com.avijitmondal.tutorial.k8s.model.Details;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +13,11 @@ import java.net.UnknownHostException;
 @RestController
 public class DetailsController {
 
-    @Autowired
-    private Environment environment;
+    private final Environment environment;
+
+    public DetailsController(Environment environment) {
+        this.environment = environment;
+    }
 
     @GetMapping("/details")
     public ResponseEntity<Details> getHostname() {

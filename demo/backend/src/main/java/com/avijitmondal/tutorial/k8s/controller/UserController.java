@@ -2,7 +2,6 @@ package com.avijitmondal.tutorial.k8s.controller;
 
 import com.avijitmondal.tutorial.k8s.model.User;
 import com.avijitmondal.tutorial.k8s.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,8 +16,12 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
+
+    private final UserRepository userRepository;
+
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "id", required = false) String id) {
