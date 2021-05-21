@@ -20,7 +20,7 @@ public class DetailsController {
     }
 
     @GetMapping("/details")
-    public ResponseEntity<Details> getHostname() {
+    public ResponseEntity<Details> getDetails() {
 
         try {
             var ip = InetAddress.getLocalHost();
