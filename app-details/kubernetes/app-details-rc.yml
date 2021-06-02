@@ -18,7 +18,7 @@ spec:
           - containerPort: 5000
          resources:
           limits:          #not overriding default requested resources
-            cpu: 1         #default value requested is 0.5 CPU
+            cpu: "1"         #default value requested is 0.5 CPU
             memory: 1Gi    #default value requested is 256Mi
           requests:          
             cpu: 100m             
