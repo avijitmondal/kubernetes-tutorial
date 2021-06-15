@@ -65,7 +65,7 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>src/integration/java</source>
+								<source>src/it/java</source>
 							</sources>
 						</configuration>
 					</execution>
