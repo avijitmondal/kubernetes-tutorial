@@ -44,6 +44,7 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v2.5.0
         with:
-          context: $GITHUB_WORKSPACE/demo/backend/Dockerfile
+          context: ./demo/backend
+          file: ./demo/backend/Dockerfile
           tags: avijitmondal/kubernetes-tutorial/backend:latest
           github-token: ${{ github.token }}
