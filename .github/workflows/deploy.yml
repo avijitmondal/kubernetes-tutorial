@@ -1,4 +1,4 @@
-name: together CI
+name: kubernetes
 
 on:
   push:
@@ -42,6 +42,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Build and push Docker images
+        id: docker_build
         uses: docker/build-push-action@v2.5.0
         with:
           context: ./demo/backend
@@ -49,3 +50,9 @@ jobs:
           tags: avijitmondal/kubernetes-tutorial/backend:latest
           github-token: ${{ github.token }}
           push: true
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+
+      - name: Published Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}

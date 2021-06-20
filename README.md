@@ -1,5 +1,7 @@
 # kubernetes tutorial
 
+[![Actions Status](https://github.com/avijitmondal/kubernetes-tutorial/workflows/kubernetes/badge.svg)](https://github.com/avijitmondal/kubernetes-tutorial/actions)
+
 ### steps to run application as a standalone java application with h2 database
 
 app-details is smallest app to use different resource types of kubernetes
