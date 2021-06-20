@@ -12,9 +12,6 @@ on:
       - created
       - published
 
-env:
-  DOCKER_CONTAINER_REGISTRY: docker.pkg.github.com
-
 jobs:
   build:
 
@@ -47,7 +44,7 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
-          registry: $DOCKER_CONTAINER_REGISTRY
+          registry: docker.pkg.github.com
           username: ${{ github.actor }}
           password: ${{ github.token }}
 
@@ -57,7 +54,7 @@ jobs:
         with:
           context: ./demo/backend
           file: ./demo/backend/Dockerfile
-          tags: $DOCKER_CONTAINER_REGISTRY/avijitmondal/kubernetes-tutorial/backend:latest
+          tags: docker.pkg.github.com/avijitmondal/kubernetes-tutorial/backend:latest
           github-token: ${{ github.token }}
           push: true
 
