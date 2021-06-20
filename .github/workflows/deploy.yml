@@ -48,3 +48,4 @@ jobs:
           file: ./demo/backend/Dockerfile
           tags: avijitmondal/kubernetes-tutorial/backend:latest
           github-token: ${{ github.token }}
+          push: true
