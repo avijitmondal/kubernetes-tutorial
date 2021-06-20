@@ -2,7 +2,7 @@ replicaCount: 1
 revisionHistoryLimit: 0
 
 image:
-  repository: avijit/app-backend
+  repository: docker.pkg.github.com/avijitmondal/kubernetes-tutorial/app-backend
   pullPolicy: IfNotPresent
   tag: ""   # Overrides the image tag whose default is the chart appVersion.
 

@@ -54,7 +54,7 @@ jobs:
         with:
           context: ./demo/backend
           file: ./demo/backend/Dockerfile
-          tags: docker.pkg.github.com/avijitmondal/kubernetes-tutorial/backend:latest
+          tags: docker.pkg.github.com/avijitmondal/kubernetes-tutorial/app-backend:latest
           github-token: ${{ github.token }}
           push: true
 
