@@ -27,7 +27,7 @@ jobs:
       - name: Get the version
         id: vars
         run: |
-          echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+          echo ::set-output name=tag::$(echo ${git log --oneline|head -n 1|awk '{print $1}'})
           echo ${GITHUB_REF:10}
 
       - name: Set up JDK 11
